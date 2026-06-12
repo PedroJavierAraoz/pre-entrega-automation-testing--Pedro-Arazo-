@@ -34,3 +34,31 @@ def login(driver, user, password):
 
     boton.click()
 
+def titulo(driver):
+    Wait= WebDriverWait(driver, 10)
+    element = Wait.until(
+        EC.presence_of_element_located((By.CLASS_NAME, "app_logo"))
+    )
+    return element.text
+
+def titulo_list(driver):
+    Wait= WebDriverWait(driver, 10)
+    element = Wait.until(
+        EC.presence_of_element_located((By.XPATH,"//span[contains(@data-test,'title')]"))
+    )
+    return element.text
+
+def lista_de_productos (driver):
+    Wait =WebDriverWait(driver,10)
+    productos= Wait.until(
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, '[data-test="inventory-item"]'))
+    )
+    return productos
+
+def get_product_title( product):
+    # product es  un  'Webelement', aqui  ya  no uso esperas pues  el  elemnto fue  oprtunamente cargado
+    return product.find_element(By.CSS_SELECTOR, '[data-test="inventory-item-name"]').text
+
+def get_product_price(product):
+
+    return product.find_element(By.CSS_SELECTOR,'[data-test="inventory-item-price"]').text
